@@ -1,6 +1,6 @@
 {
   "name": "mysql-forms",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A Simple Form Solution for MySQL",
   "main": "src/index.js",
   "scripts": {
@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/JMTNTBANG/MySQL-Forms/issues"
   },
-  "homepage": "https://github.com/JMTNTBANG/MySQL-Forms#readme"
+  "homepage": "https://github.com/JMTNTBANG/MySQL-Forms#readme",
+  "dependencies": {
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "mysql": "^2.18.1"
+  }
 }
