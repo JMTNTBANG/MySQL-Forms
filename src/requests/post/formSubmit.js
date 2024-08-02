@@ -7,13 +7,17 @@ module.exports = {
     website.post(`${prefix}formSubmit`, (request, response) => {
       const formData = request.body;
       const formName = url.parse(request.headers.referer, true).query.form;
+      let referrer = url.parse(request.headers.referer, true).query.ref;
       func.connectToMySQL(response, (err, db) => {
         if (err) throw err;
         const ip = request.ip.slice(7)
+        if (!referrer) {
+          referrer = 'N/A'
+        }
         db.query(
-          `INSERT INTO \`forms\`.\`submissions\` (\`FormName\`, \`SubmitterIP\`, \`SubmissionData\`) VALUES ('${formName}', '${
+          `INSERT INTO \`forms\`.\`submissions\` (\`FormName\`, \`SubmitterIP\`, \`SubmissionData\`, \`Referrer\`) VALUES ('${formName}', '${
             ip
-          }', '${JSON.stringify(formData)}')`,
+          }', '${JSON.stringify(formData)}', '${referrer}')`,
           (err, results, fields) => {
             if (err) response.send(func.sendError(err));
             else {
