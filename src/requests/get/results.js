@@ -5,7 +5,7 @@ const url = require("url");
 module.exports = {
   init: (prefix, website) => {
     website.get(`${prefix}results`, (request, response) => {
-      func.debugOverride(request);
+    //   func.debugOverride(request);
       if (!request.session.forms || !request.session.forms.authenticated) {
         response.sendFile(`${__dirname.slice(0, -13)}/static/login.html`);
       } else {
