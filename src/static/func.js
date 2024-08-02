@@ -36,7 +36,7 @@ module.exports = {
     return `<script>alert("${error}"); history.back();</script>`;
   },
   debugOverride: (request) => {
-    request.session.vgc = {
+    request.session.forms = {
       authenticated: true,
       username: "debug",
       userid: "-1",

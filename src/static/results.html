@@ -1,0 +1,82 @@
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #72bbff;
+    }
+
+    table,
+    th,
+    td {
+      background-color: #aad6ff;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    table {
+      margin-left: 5%;
+      margin-top: 5%;
+      margin-right: 5%;
+      width: 90%;
+      height: 10%;
+    }
+
+    th,
+    td {
+      padding-left: 1%;
+    }
+
+    .login {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+  <script>
+    let header = `<%= header %>`.replace(/(&#34;)/gm, '"');
+      header = JSON.parse(header);
+      let newHeader = "";
+      for (i of header) {
+        newHeader += `<th>${i}</th>`;
+      }
+      let data = `<%= data %>`.replace(/(&#34;)/gm, '"');
+      data = JSON.parse(data);
+      let newData = "";
+      for (row of data) {
+        newData += "<tr>";
+        for (column of row) {
+          newData += `<td>${column}</td>`;
+        }
+        newData += "</tr>";
+      }
+  </script>
+</head>
+<body>
+  <h1>Results for: <%= formName %></h1>
+  <a id="export">Download CSV</a>
+  <script>
+    let output = ""
+      for (i of header) {
+        output += `${i}%2C`
+      }
+      output.slice(0, -1) 
+      for (row of data) {
+        output += '%0A'
+        for (column of row) {
+          output += `${column}%2C`
+        }
+        output.slice(0, -3)
+      }
+      document.getElementById("export").href = `data:application/octet-stream,${output}`
+      document.getElementById("export").download = '<%= formName %>_results.csv'
+  </script>
+  <div>
+    <table id="table"></table>
+    <script>
+      document.getElementById(
+        "table"
+      ).innerHTML = `<tr>${newHeader}</tr>${newData}`;
+    </script>
+  </div>
+</body>

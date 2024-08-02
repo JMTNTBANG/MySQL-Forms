@@ -17,6 +17,7 @@ function init(prefix = "/", website = undefined) {
     website.use(express.json());
     website.use(express.urlencoded({ extended: true }));
     website.use(express.static(`${__dirname}static`));
+    website.engine("html", require("ejs").renderFile);
   
     for (const getRequest of fs.readdirSync(`${__dirname}/requests/get/`)) {
       require(`${__dirname}/requests/get/${getRequest}`).init(prefix, website);
